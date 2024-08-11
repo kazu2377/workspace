@@ -1,21 +1,3 @@
-# version: "3.9"
-
-# services:
-#   workspace:
-#     container_name: ${PROJECT_NAME:-default}-workspace-container
-#     build:
-#       context: ./docker/workspace
-#       args:
-#         USERNAME: ${USER_NAME:-vscode}
-#         USER_GROUP_NAME: ${USER_GROUP_NAME:-workspace}
-#         USER_UID: ${USER_UID:-1000}
-#         USER_GID: ${USER_GID:-1000}
-#     tty: true
-
-#     volumes:
-#       - ../:/home/${USER_NAME:-vscode}/workspace:cached
-#     working_dir: /workspace
-
 version: "3.9"
 
 services:
@@ -32,4 +14,21 @@ services:
 
     volumes:
       - ../:/home/${USER_NAME:-vscode}/workspace:cached
-    working_dir: /home/${USER_NAME:-vscode}/workspace
+    working_dir: /workspace
+# version: "3.9"
+
+# services:
+#   workspace:
+#     container_name: ${PROJECT_NAME:-default}-workspace-container
+#     build:
+#       context: ./docker/workspace
+#       args:
+#         USERNAME: ${USER_NAME:-vscode}
+#         USER_GROUP_NAME: ${USER_GROUP_NAME:-workspace}
+#         USER_UID: ${USER_UID:-1000}
+#         USER_GID: ${USER_GID:-1000}
+#     tty: true
+
+#     volumes:
+#       - ../:/home/${USER_NAME:-vscode}/workspace:cached
+#     working_dir: /home/${USER_NAME:-vscode}/workspace
