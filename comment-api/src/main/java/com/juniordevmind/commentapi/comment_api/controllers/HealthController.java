@@ -12,6 +12,6 @@ public class HealthController {
 
     @GetMapping("")
     public ResponseEntity<String> getHealth() {
-        return ResponseEntity.ok("Comment API is up and running!");
+        return ResponseEntity.ok("Comment API is up and running!!");
     }
 }
