@@ -1,16 +1,13 @@
-package com.example.demo;
+package com.juniordevmind.authorapi.author_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class AuthorApiApplication {
 
 	public static void main(String[] args) {
-		System.out.print("testddddaaadd");
-
-		SpringApplication.run(DemoApplication.class, args);
-		
+		SpringApplication.run(AuthorApiApplication.class, args);
 	}
 
 }
