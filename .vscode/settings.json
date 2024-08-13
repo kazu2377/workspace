@@ -1,0 +1,6 @@
+{
+  "java.dependency.packagePresentation": "hierarchical",
+  "java.dependency.syncWithFolderExplorer": false,
+  "java.compile.nullAnalysis.mode": "automatic"
+  
+}
