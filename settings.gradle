@@ -2,4 +2,4 @@ rootProject.name = "workspace"
 include("author-api")
 include("book-api")
 include("comment-api")
-// include("shared")
+include("shared")

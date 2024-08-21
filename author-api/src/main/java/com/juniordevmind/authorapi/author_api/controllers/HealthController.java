@@ -13,7 +13,7 @@ public class HealthController {
     @GetMapping("")
     public ResponseEntity<String> getHealth() {
 
-        return ResponseEntity.ok("Author API is up and running!!");
+        return ResponseEntity.ok("Author API is up and running!dd!");
 
     }
 }
