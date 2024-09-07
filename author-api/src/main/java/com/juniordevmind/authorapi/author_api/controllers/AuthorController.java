@@ -39,6 +39,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AuthorDto> getAuthor(@PathVariable String id) {
+        System.out.println("東京新潟");
         return ResponseEntity.ok(_authorService.getAuthor(id));
     }
 
@@ -60,6 +61,7 @@ public class AuthorController {
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updateAuthor(@PathVariable String id, @Valid @RequestBody UpdateAuthorDto dto) {
         _authorService.updateAuthor(dto, id);
+
         return ResponseEntity.noContent().build();
     }
 }

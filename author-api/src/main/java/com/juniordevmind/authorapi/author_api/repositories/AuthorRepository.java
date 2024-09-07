@@ -1,7 +1,5 @@
 package com.juniordevmind.authorapi.author_api.repositories;
 
-import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

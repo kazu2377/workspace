@@ -8,7 +8,8 @@
       "mainClass": "com.juniordevmind.authorapi.author_api.AuthorApiApplication",
       "projectName": "author-api",
       "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": "-Dspring.devtools.restart.enabled=true"
     },
     {
       "type": "java",
