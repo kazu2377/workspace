@@ -21,6 +21,9 @@
     "vscjava.vscode-spring-initializr",
     "vscjava.vscode-gradle",
     "rangav.vscode-thunder-client",
-    "vmware.vscode-boot-dev-pack"
+    "vmware.vscode-boot-dev-pack",
+    "cweijan.vscode-mysql-client2",
+    "Postman.postman-for-vscode",
+    "ms-azuretools.vscode-docker"
   ]
 }
