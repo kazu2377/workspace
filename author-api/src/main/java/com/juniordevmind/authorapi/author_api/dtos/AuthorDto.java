@@ -1,7 +1,5 @@
 package com.juniordevmind.authorapi.author_api.dtos;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorDto {
-    private UUID id;
+    private String id;// UUIDを文字列として扱う事で、データに書き込む場合の型も変更テーブルへの前
     private String name;
     private String description;
 }

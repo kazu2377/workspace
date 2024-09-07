@@ -3,7 +3,6 @@ package com.juniordevmind.authorapi.author_api.controllers;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,13 +33,12 @@ public class AuthorController {
 
     @GetMapping("")
     public ResponseEntity<List<AuthorDto>> getAuthors() {
-        System.err.println("prePersist");
 
         return ResponseEntity.ok(new ArrayList<AuthorDto>(_authorService.getAuthors()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getAuthor(@PathVariable UUID id) {
+    public ResponseEntity<AuthorDto> getAuthor(@PathVariable String id) {
         return ResponseEntity.ok(_authorService.getAuthor(id));
     }
 
@@ -54,13 +52,13 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAuthor(@PathVariable UUID id) {
+    public ResponseEntity<Object> deleteAuthor(@PathVariable String id) {
         _authorService.deleteAuthor(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateAuthor(@PathVariable UUID id, @Valid @RequestBody UpdateAuthorDto dto) {
+    public ResponseEntity<Object> updateAuthor(@PathVariable String id, @Valid @RequestBody UpdateAuthorDto dto) {
         _authorService.updateAuthor(dto, id);
         return ResponseEntity.noContent().build();
     }

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.juniordevmind.authorapi.author_api.models.Author;
 
 @Repository
-public interface AuthorRepository extends JpaRepository<Author, UUID> {
+public interface AuthorRepository extends JpaRepository<Author, String> {
 
 }
