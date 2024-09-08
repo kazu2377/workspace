@@ -33,13 +33,13 @@ public class AuthorController {
 
     @GetMapping("")
     public ResponseEntity<List<AuthorDto>> getAuthors() {
+        System.out.println("東京新潟n名古屋");
 
         return ResponseEntity.ok(new ArrayList<AuthorDto>(_authorService.getAuthors()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AuthorDto> getAuthor(@PathVariable String id) {
-        System.out.println("東京新潟");
         return ResponseEntity.ok(_authorService.getAuthor(id));
     }
 
