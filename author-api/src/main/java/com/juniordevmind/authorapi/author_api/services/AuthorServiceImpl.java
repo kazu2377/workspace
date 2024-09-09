@@ -11,6 +11,7 @@ import com.juniordevmind.authorapi.author_api.dtos.CreateAuthorDto;
 import com.juniordevmind.authorapi.author_api.dtos.UpdateAuthorDto;
 import com.juniordevmind.authorapi.author_api.models.Author;
 import com.juniordevmind.authorapi.author_api.repositories.AuthorRepository;
+import com.juniordevmind.shared.errors.NotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -96,7 +97,7 @@ public class AuthorServiceImpl implements AuthorService {
     Optional<Author> result = _authorRepository.findById(id);
 
     if (result.isEmpty()) {
-      throw new RuntimeException("Not found with this ID: " + id);
+      throw new NotFoundException("Not found with this ID: " + id);
     }
 
     return result.get();
