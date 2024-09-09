@@ -22,17 +22,21 @@ public class BookServiceImpl implements BookService {
   @Override
   public List<BookDto> getBooks() {
     List<Book> books = _bookRepository.findAll();
-    // List<BookDto> bookDtos = books.stream().map(bookItem -> (BookDto)
-    // BookDto.builder()
-    // authorItem.getId(),
-    // authorItem.getName(),
-    // authorItem.getDescription())).toList();
-    // .build()).toList();
 
-    List<BookDto> bookDtos = books.stream().map(bookItem -> new BookDto(
-        bookItem.getId(),
-        bookItem.getTitle(),
-        bookItem.getDescription())).toList();
+    // List<BookDto> bookDtos = books.stream().map(
+
+    // bookItem -> (BookDto)
+    // BookDto.builder().id(bookItem.getId()).title(bookItem.getTitle()).description(bookItem.getDescription())
+    // .createdAt(bookItem.getCreatedAt())
+    // .updatedAt(bookItem.getUpdatedAt())
+    // .build()
+
+    // ).toList();
+
+    List<BookDto> bookDtos = books.stream().map(
+        bookItem -> new BookDto(bookItem.getId(), bookItem.getTitle(), bookItem.getDescription())
+
+    ).toList();
 
     return bookDtos;
   }

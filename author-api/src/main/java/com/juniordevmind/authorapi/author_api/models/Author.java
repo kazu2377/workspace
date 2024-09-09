@@ -1,34 +1,23 @@
 package com.juniordevmind.authorapi.author_api.models;
 
-// import java.util.Objects;
-// import java.util.UUID;
-
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.PrePersist;
-// import lombok.AllArgsConstructor;
-// import lombok.Data;
-// import lombok.NoArgsConstructor;
-
-import java.util.UUID;
+import com.juniordevmind.shared.models.EntityBase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Author {
-  @Id
-  @Column(name = "id", updatable = false, nullable = false, length = 36)
-  private String id; // UUIDを文字列として扱う 修正
+@EqualsAndHashCode(callSuper = true)
+public class Author extends EntityBase {
+  // @Id
+  // @Column(name = "id", updatable = false, nullable = false, length = 36)
+  // private String id; // UUIDを文字列として扱う 修正
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -36,13 +25,13 @@ public class Author {
   @Column(name = "description", nullable = false)
   private String description;
 
-  @PrePersist
-  protected void prePersist() {
-    if (this.id == null) {
-      this.id = UUID.randomUUID().toString();
-      System.err.println(this.id);
-    }
-  }
+  // @PrePersist
+  // protected void prePersist() {
+  // if (this.id == null) {
+  // this.id = UUID.randomUUID().toString();
+  // System.err.println(this.id);
+  // }
+  // }
 }
 
 // @Entity

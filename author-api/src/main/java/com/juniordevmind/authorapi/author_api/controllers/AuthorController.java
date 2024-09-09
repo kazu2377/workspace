@@ -33,8 +33,6 @@ public class AuthorController {
 
     @GetMapping("")
     public ResponseEntity<List<AuthorDto>> getAuthors() {
-        System.out.println("東京新潟n名古屋");
-
         return ResponseEntity.ok(new ArrayList<AuthorDto>(_authorService.getAuthors()));
     }
 

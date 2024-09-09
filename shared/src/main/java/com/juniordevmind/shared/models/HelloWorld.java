@@ -1,4 +1,4 @@
-package com.juniordevmind.shared.model;
+package com.juniordevmind.shared.models;
 
 public class HelloWorld {
   private String greeting;

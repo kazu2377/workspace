@@ -1,10 +1,10 @@
 {
   "java.dependency.packagePresentation": "hierarchical",
   "java.dependency.syncWithFolderExplorer": false,
-  "java.compile.nullAnalysis.mode": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic"
 
-  "java.autobuild.enabled": true,
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 1000
+  // "java.autobuild.enabled": true,
+  // "java.configuration.updateBuildConfiguration": "automatic",
+  // "files.autoSave": "afterDelay",
+  // "files.autoSaveDelay": 1000
 }
