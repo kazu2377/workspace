@@ -22,20 +22,38 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   public List<AuthorDto> getAuthors() {
     List<Author> authors = _authorRepository.findAll();
-    List<AuthorDto> authorDtos = authors.stream().map(authorItem -> new AuthorDto(
-        authorItem.getId(),
-        authorItem.getName(),
-        authorItem.getDescription())).toList();
+    // List<AuthorDto> authorDtos = authors.stream().map(authorItem -> new
+    // AuthorDto(
+    // authorItem.getId(),
+    // authorItem.getName(),
+    // authorItem.getDescription())).toList();
+
+    List<AuthorDto> authorDtos = authors.stream().map(
+
+        authorItem -> (AuthorDto) AuthorDto.builder().id(authorItem.getId()).name(authorItem.getName())
+            .description(authorItem.getDescription())
+            .createdAt(authorItem.getCreatedAt())
+            .updatedAt(authorItem.getUpdatedAt())
+            .build())
+        .toList();
+
     return authorDtos;
   }
 
   @Override
   public AuthorDto getAuthor(String id) {
     Author author = _findAuthorById(id);
-    return new AuthorDto(
-        author.getId(),
-        author.getName(),
-        author.getDescription());
+
+    return AuthorDto.builder().id(author.getId())
+        .name(author.getName())
+        .description(author.getDescription())
+        .createdAt(author.getCreatedAt())
+        .updatedAt(author.getUpdatedAt())
+        .build();
+    // return new AuthorDto(
+    // author.getId(),
+    // author.getName(),
+    // author.getDescription());
   }
 
   @Override
@@ -44,10 +62,12 @@ public class AuthorServiceImpl implements AuthorService {
     newAuthor.setName(dto.getName());
     newAuthor.setDescription(dto.getDescription());
     Author savedAuthor = _authorRepository.save(newAuthor);
-    return new AuthorDto(
-        savedAuthor.getId(),
-        savedAuthor.getName(),
-        savedAuthor.getDescription());
+    return AuthorDto.builder().id(savedAuthor.getId())
+        .name(savedAuthor.getName())
+        .description(savedAuthor.getDescription())
+        .createdAt(savedAuthor.getCreatedAt())
+        .updatedAt(savedAuthor.getUpdatedAt())
+        .build();
 
   }
 
