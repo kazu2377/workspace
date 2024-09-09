@@ -52,6 +52,12 @@ subprojects {
     }
 }
 
+project(':book-api') {
+    dependencies {
+        implementation project(':shared')
+    }
+}
+
 project(':author-api') {
     dependencies {
         implementation project(':shared')
