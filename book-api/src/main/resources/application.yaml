@@ -2,7 +2,7 @@
 server:
   port: 7070
 
-spring: 
+spring:
   jpa:
     hibernate:
       ddl-auto: create
@@ -17,6 +17,12 @@ spring:
       enabled: true
     livereload:
       enabled: true
+
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:rabbitMQ}
+    port: 5672
+    password: ${RABBIT_MQ_PASSWORD:rabbitmq}
+    username: ${RABBIT_MQ_USERNAME:rabbitmq}
 
   datasource:
     url: jdbc:mysql://${DB_HOST:book-api-mysql}:${DB_PORT:3306}/${DB_NAME:dev}?createDatabaseIfNotExist=true

@@ -1,7 +1,8 @@
 {
   "java.dependency.packagePresentation": "hierarchical",
   "java.dependency.syncWithFolderExplorer": false,
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.jdt.ls.java.home": "/home/vscode/.sdkman/candidates/java/current"
 
   // "java.autobuild.enabled": true,
   // "java.configuration.updateBuildConfiguration": "automatic",
