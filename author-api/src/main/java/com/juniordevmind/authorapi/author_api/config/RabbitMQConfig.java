@@ -18,10 +18,23 @@ public class RabbitMQConfig {
 
 
   //ドラクエの例え: 「集会所」
-  @Bean
-  public FanoutExchange authorCreatedExchange() {
-    return new FanoutExchange(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE);
-  }
+ 
+      // producer
+      @Bean
+      public FanoutExchange authorCreatedExchange() {
+          return new FanoutExchange(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE);
+      }
+  
+      @Bean
+      public FanoutExchange authorDeletedExchange() {
+          return new FanoutExchange(RabbitMQKeys.AUTHOR_DELETED_EXCHANGE);
+      }
+  
+      @Bean
+      public FanoutExchange authorUpdatedExchange() {
+          return new FanoutExchange(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE);
+      }
+  
 
   //ドラクエの例え: 「翻訳家」
   @Bean

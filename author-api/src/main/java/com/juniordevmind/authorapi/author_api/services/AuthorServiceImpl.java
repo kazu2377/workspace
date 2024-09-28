@@ -103,6 +103,8 @@ public class AuthorServiceImpl implements AuthorService {
   public void deleteAuthor(String id) {
     Author author = _findAuthorById(id);
     _authorRepository.delete(author);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_DELETED_EXCHANGE, null, author);
+
   }
 
   @Override
@@ -118,6 +120,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     _authorRepository.save(found);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE, null, found);
+
   }
 
   private Author _findAuthorById(String id) {
