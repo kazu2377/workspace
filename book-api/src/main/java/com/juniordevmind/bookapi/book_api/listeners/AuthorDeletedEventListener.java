@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.juniordevmind.bookapi.book_api.config.RabbitMQConfig;
 import com.juniordevmind.bookapi.book_api.models.Author;
+import com.juniordevmind.shared.domain.AuthorEventDto;
+import com.juniordevmind.shared.models.CustomMessage;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthorDeletedEventListener  {
 
     @RabbitListener(queues = { RabbitMQConfig.QUEUE_AUTHOR_DELETED  })
-    public void handleMessage(Author message) {
+    public void handleMessage(CustomMessage<AuthorEventDto> message) {
         log.info("{} got triggered. got a message: {}", AuthorDeletedEventListener.class, message.toString());
     }
 }

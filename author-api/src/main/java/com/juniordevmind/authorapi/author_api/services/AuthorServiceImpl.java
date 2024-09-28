@@ -1,8 +1,10 @@
 package com.juniordevmind.authorapi.author_api.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,9 @@ import com.juniordevmind.authorapi.author_api.mappers.AuthorMapper;
 import com.juniordevmind.authorapi.author_api.models.Author;
 import com.juniordevmind.authorapi.author_api.repositories.AuthorRepository;
 import com.juniordevmind.shared.constants.RabbitMQKeys;
+import com.juniordevmind.shared.domain.AuthorEventDto;
 import com.juniordevmind.shared.errors.NotFoundException;
+import com.juniordevmind.shared.models.CustomMessage;
 
 import lombok.RequiredArgsConstructor;
 
@@ -82,6 +86,12 @@ public class AuthorServiceImpl implements AuthorService {
     // dto.getDescription())));
 
     Author savedAuthor = _authorRepository.save(new Author(dto.getName(), dto.getDescription()));
+
+    CustomMessage<AuthorEventDto> message = new CustomMessage<>();
+    message.setMessageId(UUID.randomUUID());
+    message.setMessageDate(LocalDateTime.now());
+    message.setPayload(_authorMapper.toEventDto(savedAuthor));
+
     _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null, savedAuthor);
     return _authorMapper.toDto(savedAuthor);
 
@@ -103,24 +113,34 @@ public class AuthorServiceImpl implements AuthorService {
   public void deleteAuthor(String id) {
     Author author = _findAuthorById(id);
     _authorRepository.delete(author);
+
+    CustomMessage<AuthorEventDto> message = new CustomMessage<>();
+    message.setMessageId(UUID.randomUUID());
+    message.setMessageDate(LocalDateTime.now());
+    message.setPayload(_authorMapper.toEventDto(author));
+
     _template.convertAndSend(RabbitMQKeys.AUTHOR_DELETED_EXCHANGE, null, author);
 
   }
 
   @Override
   public void updateAuthor(UpdateAuthorDto dto, String id) {
-    Author found = _findAuthorById(id);
+    Author existingAuthor = _findAuthorById(id);
 
     if (Objects.nonNull(dto.getName())) {
-      found.setName(dto.getName());
+      existingAuthor.setName(dto.getName());
     }
 
     if (Objects.nonNull(dto.getDescription())) {
-      found.setDescription(dto.getDescription());
+      existingAuthor.setDescription(dto.getDescription());
     }
 
-    _authorRepository.save(found);
-    _template.convertAndSend(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE, null, found);
+    _authorRepository.save(existingAuthor);
+    CustomMessage<AuthorEventDto> message = new CustomMessage<>();
+    message.setMessageId(UUID.randomUUID());
+    message.setMessageDate(LocalDateTime.now());
+    message.setPayload(_authorMapper.toEventDto(existingAuthor));
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE, null, existingAuthor);
 
   }
 
