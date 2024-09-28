@@ -33,7 +33,9 @@ public class AuthorController {
 
     @GetMapping("")
     public ResponseEntity<List<AuthorDto>> getAuthors() {
-        return ResponseEntity.ok(new ArrayList<AuthorDto>(_authorService.getAuthors()));
+
+        ArrayList<AuthorDto> tv = new ArrayList<AuthorDto>(_authorService.getAuthors());
+        return ResponseEntity.ok(tv);
     }
 
     @GetMapping("/{id}")

@@ -52,6 +52,9 @@ public class AuthorServiceImpl implements AuthorService {
     // .toList();
 
     // 修正３
+    List<AuthorDto> authors = _authorRepository.findAll().stream().map(author -> _authorMapper.toDto(author)).toList();
+    System.out.println("Authors List: " + authors);
+
     return _authorRepository.findAll().stream().map(author -> _authorMapper.toDto(author)).toList();
 
     // return authorDtos;
@@ -82,17 +85,35 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   public AuthorDto createAuthor(CreateAuthorDto dto) {
 
+    // Author savedAuthor = _authorRepository.save(new Author(dto.getName(),
+    // dto.getDescription()));
+    // _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null,
+    // savedAuthor);
+    // return _authorMapper.toDto(savedAuthor);
+
     // return _authorMapper.toDto(_authorRepository.save(new Author(dto.getName(),
     // dto.getDescription())));
 
-    Author savedAuthor = _authorRepository.save(new Author(dto.getName(), dto.getDescription()));
+    // Author savedAuthor = _authorRepository.save(new Author(dto.getName(),
+    // dto.getDescription()));
 
+    // CustomMessage<AuthorEventDto> message = new CustomMessage<>();
+    // message.setMessageId(UUID.randomUUID());
+    // message.setMessageDate(LocalDateTime.now());
+    // message.setPayload(_authorMapper.toEventDto(savedAuthor));
+
+    // _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null,
+    // savedAuthor);
+    // return _authorMapper.toDto(savedAuthor);
+
+    Author savedAuthor = _authorRepository.save(new Author(dto.getName(),
+        dto.getDescription()));
     CustomMessage<AuthorEventDto> message = new CustomMessage<>();
     message.setMessageId(UUID.randomUUID());
     message.setMessageDate(LocalDateTime.now());
     message.setPayload(_authorMapper.toEventDto(savedAuthor));
-
-    _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null, savedAuthor);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null,
+        message);
     return _authorMapper.toDto(savedAuthor);
 
     // 修正前
@@ -119,7 +140,7 @@ public class AuthorServiceImpl implements AuthorService {
     message.setMessageDate(LocalDateTime.now());
     message.setPayload(_authorMapper.toEventDto(author));
 
-    _template.convertAndSend(RabbitMQKeys.AUTHOR_DELETED_EXCHANGE, null, author);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_DELETED_EXCHANGE, null, message);
 
   }
 
@@ -140,7 +161,7 @@ public class AuthorServiceImpl implements AuthorService {
     message.setMessageId(UUID.randomUUID());
     message.setMessageDate(LocalDateTime.now());
     message.setPayload(_authorMapper.toEventDto(existingAuthor));
-    _template.convertAndSend(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE, null, existingAuthor);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_UPDATED_EXCHANGE, null, message);
 
   }
 
