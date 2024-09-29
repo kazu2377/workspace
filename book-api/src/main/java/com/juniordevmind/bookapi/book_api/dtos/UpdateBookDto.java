@@ -1,5 +1,7 @@
 package com.juniordevmind.bookapi.book_api.dtos;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
@@ -14,4 +16,7 @@ public class UpdateBookDto {
   private String title;
   @Length(max = 255)
   private String description;
+
+  private List<String> authors;
+
 }

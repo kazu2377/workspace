@@ -6,11 +6,15 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.juniordevmind.bookapi.book_api.dtos.AuthorDto;
 import com.juniordevmind.bookapi.book_api.dtos.BookDto;
 import com.juniordevmind.bookapi.book_api.dtos.CreateBookDto;
 import com.juniordevmind.bookapi.book_api.dtos.UpdateBookDto;
+import com.juniordevmind.bookapi.book_api.mappers.AuthorMapper;
 import com.juniordevmind.bookapi.book_api.mappers.BookMapper;
+import com.juniordevmind.bookapi.book_api.models.Author;
 import com.juniordevmind.bookapi.book_api.models.Book;
+import com.juniordevmind.bookapi.book_api.repositories.AuthorRepository;
 import com.juniordevmind.bookapi.book_api.repositories.BookRepository;
 import com.juniordevmind.shared.errors.NotFoundException;
 
@@ -19,8 +23,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+  // private final BookRepository _bookRepository;
+  // private final BookMapper _bookMapper;
+
   private final BookRepository _bookRepository;
+  private final AuthorRepository _authorRepository;
   private final BookMapper _bookMapper;
+  private final AuthorMapper _authorMapper;
 
   @Override
   public List<BookDto> getBooks() {
@@ -50,7 +59,15 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public BookDto getBook(String id) {
-    return _bookMapper.toDto(_findBookById(id));
+
+    Book book = _findBookById(id);
+    List<Author> authors = _authorRepository.findAllById(book.getAuthors());
+    List<AuthorDto> authorDtos = authors.stream().map(author -> _authorMapper.toDto(author)).toList();
+    BookDto bookDto = _bookMapper.toDto(book);
+    bookDto.setAuthors(authorDtos);
+    return bookDto;
+
+    // return _bookMapper.toDto(_findBookById(id));
 
     // Book book = _findBookById(id);
 
@@ -70,7 +87,9 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public BookDto createBook(CreateBookDto dto) {
-    return _bookMapper.toDto(_bookRepository.save(new Book(dto.getTitle(), dto.getDescription())));
+    // return _bookMapper.toDto(_bookRepository.save(new Book(dto.getTitle(),
+    // dto.getDescription())));
+    return _bookMapper.toDto(_bookRepository.save(new Book(dto.getTitle(), dto.getDescription(), dto.getAuthors())));
 
     // Book newBook = new Book();
     // newBook.setTitle(dto.getTitle());
@@ -110,6 +129,17 @@ public class BookServiceImpl implements BookService {
     }
 
     _bookRepository.save(found);
+    // Book found = _findBookById(id);
+
+    // if (Objects.nonNull(dto.getTitle())) {
+    // found.setTitle(dto.getTitle());
+    // }
+
+    // if (Objects.nonNull(dto.getDescription())) {
+    // found.setDescription(dto.getDescription());
+    // }
+
+    // _bookRepository.save(found);
   }
 
   private Book _findBookById(String id) {

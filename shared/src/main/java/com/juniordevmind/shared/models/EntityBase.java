@@ -1,6 +1,7 @@
 package com.juniordevmind.shared.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -51,4 +52,7 @@ public class EntityBase {
   protected void preUpdate() {
     this.updatedAt = LocalDateTime.now();
   }
+
+  @Column(name = "author_id")
+  private List<String> authors;
 }

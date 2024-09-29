@@ -1,9 +1,15 @@
 package com.juniordevmind.bookapi.book_api.models;
 
+import java.util.List;
+
 import com.juniordevmind.shared.models.EntityBase;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +31,13 @@ public class Book extends EntityBase {
 
   @Column(name = "description", nullable = false)
   private String description;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "book_authors", joinColumns = @JoinColumn(name = "id"))
+  @Column(name = "author_id")
+  private List<String> authors;
+
+
 
   // @PrePersist
   // protected void prePersist() {

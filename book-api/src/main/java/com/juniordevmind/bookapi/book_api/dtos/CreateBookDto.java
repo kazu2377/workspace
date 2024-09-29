@@ -1,5 +1,7 @@
 package com.juniordevmind.bookapi.book_api.dtos;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotNull;
@@ -18,4 +20,6 @@ public class CreateBookDto {
   @NotNull
   @Length(max = 255)
   private String description;
+
+  private List<String> authors;
 }
