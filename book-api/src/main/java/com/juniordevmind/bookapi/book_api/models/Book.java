@@ -37,8 +37,6 @@ public class Book extends EntityBase {
   @Column(name = "author_id")
   private List<String> authors;
 
-
-
   // @PrePersist
   // protected void prePersist() {
   // if (this.id == null) {

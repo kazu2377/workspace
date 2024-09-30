@@ -37,6 +37,7 @@ public class AuthorDeletedEventListener {
         }
         _authorRepository.delete(existingAuthor.get());
 
+        // List<Book> books = _bookRepository.findAllByAuthors(authorEventDto.getId());
         List<Book> books = _bookRepository.findAllByAuthors(authorEventDto.getId());
 
         for (Book bookItem : books) {

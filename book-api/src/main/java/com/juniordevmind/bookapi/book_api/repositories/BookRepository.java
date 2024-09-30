@@ -9,6 +9,10 @@ import com.juniordevmind.bookapi.book_api.models.Book;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
+  // List<Book> findAllByAuthors(String authorId);
   List<Book> findAllByAuthors(String authorId);
-   // 方法1: Contains を使用
+
+  // List<Book> findAllByAuthorsContaining(String authorId);
+
+  // 方法1: Contains を使用
 }

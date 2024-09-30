@@ -53,6 +53,5 @@ public class EntityBase {
     this.updatedAt = LocalDateTime.now();
   }
 
-  @Column(name = "author_id")
-  private List<String> authors;
+ 
 }
