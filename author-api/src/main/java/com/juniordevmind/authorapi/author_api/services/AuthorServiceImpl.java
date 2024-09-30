@@ -10,11 +10,15 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import com.juniordevmind.authorapi.author_api.dtos.AuthorDto;
+import com.juniordevmind.authorapi.author_api.dtos.BookDto;
 import com.juniordevmind.authorapi.author_api.dtos.CreateAuthorDto;
 import com.juniordevmind.authorapi.author_api.dtos.UpdateAuthorDto;
 import com.juniordevmind.authorapi.author_api.mappers.AuthorMapper;
+import com.juniordevmind.authorapi.author_api.mappers.BookMapper;
 import com.juniordevmind.authorapi.author_api.models.Author;
+import com.juniordevmind.authorapi.author_api.models.Book;
 import com.juniordevmind.authorapi.author_api.repositories.AuthorRepository;
+import com.juniordevmind.authorapi.author_api.repositories.BookRepository;
 import com.juniordevmind.shared.constants.RabbitMQKeys;
 import com.juniordevmind.shared.domain.AuthorEventDto;
 import com.juniordevmind.shared.errors.NotFoundException;
@@ -27,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthorServiceImpl implements AuthorService {
   private final AuthorRepository _authorRepository;
   private final AuthorMapper _authorMapper;
+  private final BookRepository _bookRepository;
+  private final BookMapper _bookMapper;
   private final RabbitTemplate _template;
 
   @Override
@@ -62,8 +68,14 @@ public class AuthorServiceImpl implements AuthorService {
 
   @Override
   public AuthorDto getAuthor(String id) {
+    Author author = _findAuthorById(id);
+    List<Book> books = _bookRepository.findAllById(author.getBooks());
+    List<BookDto> bookDtos = books.stream().map(book -> _bookMapper.toDto(book)).toList();
 
-    return _authorMapper.toDto(_findAuthorById(id));
+    AuthorDto authorDto = _authorMapper.toDto(author);
+    authorDto.setBooks(bookDtos);
+    return authorDto;
+    // return _authorMapper.toDto(_findAuthorById(id));
 
     // 修正２
     // Author author = _findAuthorById(id);
@@ -106,15 +118,22 @@ public class AuthorServiceImpl implements AuthorService {
     // savedAuthor);
     // return _authorMapper.toDto(savedAuthor);
 
-    Author savedAuthor = _authorRepository.save(new Author(dto.getName(),
-        dto.getDescription()));
+    Author savedAuthor = _authorRepository.save(new Author(dto.getName(), dto.getDescription(), dto.getBooks()));
     CustomMessage<AuthorEventDto> message = new CustomMessage<>();
     message.setMessageId(UUID.randomUUID());
     message.setMessageDate(LocalDateTime.now());
     message.setPayload(_authorMapper.toEventDto(savedAuthor));
-    _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null,
-        message);
+    _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null, message);
     return _authorMapper.toDto(savedAuthor);
+    // Author savedAuthor = _authorRepository.save(new Author(dto.getName(),
+    //     dto.getDescription()));
+    // CustomMessage<AuthorEventDto> message = new CustomMessage<>();
+    // message.setMessageId(UUID.randomUUID());
+    // message.setMessageDate(LocalDateTime.now());
+    // message.setPayload(_authorMapper.toEventDto(savedAuthor));
+    // _template.convertAndSend(RabbitMQKeys.AUTHOR_CREATED_EXCHANGE, null,
+    //     message);
+    // return _authorMapper.toDto(savedAuthor);
 
     // 修正前
     // Author newAuthor = new Author();

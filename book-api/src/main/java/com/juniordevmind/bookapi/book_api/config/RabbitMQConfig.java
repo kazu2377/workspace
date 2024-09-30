@@ -18,6 +18,23 @@ public class RabbitMQConfig {
   public static final String QUEUE_AUTHOR_DELETED = "book-api.message.queue.author.deleted";
   public static final String QUEUE_AUTHOR_UPDATED = "book-api.message.queue.author.updated";
 
+      // producer
+    @Bean
+    public FanoutExchange bookCreatedExchange() {
+        return new FanoutExchange(RabbitMQKeys.BOOK_CREATED_EXCHANGE);
+    }
+
+    @Bean
+    public FanoutExchange bookDeletedExchange() {
+        return new FanoutExchange(RabbitMQKeys.BOOK_DELETED_EXCHANGE);
+    }
+
+    @Bean
+    public FanoutExchange bookUpdatedExchange() {
+      return new FanoutExchange(RabbitMQKeys.BOOK_UPDATED_EXCHANGE);
+    }
+
+    
   // consumer
   @Bean
   public Queue authorCreatedQueue() {

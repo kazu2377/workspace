@@ -2,10 +2,34 @@
   "java.dependency.packagePresentation": "hierarchical",
   "java.dependency.syncWithFolderExplorer": false,
   "java.compile.nullAnalysis.mode": "automatic",
-  "java.jdt.ls.java.home": "/home/vscode/.sdkman/candidates/java/current"
+  "java.jdt.ls.java.home": "/home/vscode/.sdkman/candidates/java/current",
+  "spring-boot.ls.java.home": "/home/vscode/.sdkman/candidates/java/current",
+  "java.debug.settings.onBuildFailureProceed": true
+
+  // "java.debug.settings.onBuildFailureProceed": true
 
   // "java.autobuild.enabled": true,
   // "java.configuration.updateBuildConfiguration": "automatic",
   // "files.autoSave": "afterDelay",
   // "files.autoSaveDelay": 1000
 }
+// {
+//   "java.dependency.packagePresentation": "hierarchical",
+//   "java.dependency.syncWithFolderExplorer": false,
+//   "java.compile.nullAnalysis.mode": "automatic",
+//   "java.jdt.ls.java.home": "/home/vscode/.sdkman/candidates/java/17.0.8-tem",
+
+//   "java.configuration.runtimes": [
+//     {
+//       "name": "JavaSE-17",
+//       "path": "/home/vscode/.sdkman/candidates/java/17.0.8-tem",
+//       "default": true
+//     },
+//     {
+//       "name": "JavaSE-23",
+//       "path": "/home/vscode/.sdkman/candidates/java/23.0.1-tem",
+//       "default": false
+//     }
+//   ],
+//   "java.debug.settings.onBuildFailureProceed": true
+// }

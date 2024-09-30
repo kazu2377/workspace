@@ -14,9 +14,9 @@ import com.juniordevmind.shared.constants.RabbitMQKeys;
 
 @Configuration
 public class RabbitMQConfig {
-  // producer
-
-
+    public static final String QUEUE_BOOK_CREATED = "author-api.message.queue.book.created";
+    public static final String QUEUE_BOOK_DELETED = "author-api.message.queue.book.deleted";
+    public static final String QUEUE_BOOK_UPDATED = "author-api.message.queue.book.updated";
   //ドラクエの例え: 「集会所」
  
       // producer

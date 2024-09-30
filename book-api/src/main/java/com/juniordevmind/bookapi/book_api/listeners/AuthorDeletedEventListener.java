@@ -41,9 +41,12 @@ public class AuthorDeletedEventListener {
         List<Book> books = _bookRepository.findAllByAuthors(authorEventDto.getId());
 
         for (Book bookItem : books) {
-            List<String> filtered = bookItem.getAuthors().stream()
-                    .filter(authorId -> !authorId.equals(authorEventDto.getId())).toList();
-            bookItem.setAuthors(filtered);
+
+            bookItem.getAuthors().remove(authorEventDto.getId());
+
+            // List<String> filtered = bookItem.getAuthors().stream()
+            // .filter(authorId -> !authorId.equals(authorEventDto.getId())).toList();
+            // bookItem.setAuthors(filtered);
         }
     }
 }
