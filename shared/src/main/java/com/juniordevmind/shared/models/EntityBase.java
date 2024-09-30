@@ -1,7 +1,6 @@
 package com.juniordevmind.shared.models;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
